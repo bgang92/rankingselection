@@ -1,0 +1,7 @@
+This is contains the code for the paper "Ranking and Selection in Large-Scale Inference of Heteroscedastic Units"
+rih.R contains the main funcitons
+rih.func implement the selection procedure described in Section 3
+rvalue.func constructs r-values by varying FDR level
+rvalue2.func constructs r-values by varying mu_0
+
+3M.funcs.R, nest.func.R, rsorgen.R contains functions called by rih.R.
