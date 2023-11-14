@@ -178,7 +178,7 @@ rsorddgen.func=function(postx,clfdr,q=0.1){
   else{
     rejset=gp0
  
-    while (((mean(clfdr[rejset])<q) &&(length(sorted.gp1)>0))) {
+  while (((mean(clfdr[c(rejset,sorted.gp1[1])])<q) &&(length(sorted.gp1)>1))) {
       rejset=c(rejset,sorted.gp1[1])
      
       
@@ -214,7 +214,7 @@ rsorddgen.func=function(postx,clfdr,q=0.1){
    
    
     
-    while (((mean(clfdr[rejset])<q) &&(length(sorted.gp1)>0))) {
+   while (((mean(clfdr[c(rejset,sorted.gp1[1])])<q) &&(length(sorted.gp1)>1))) {
       rejset=c(rejset,sorted.gp1[1])
       
       sorted.clfdrgp1=sorted.clfdrgp1[-1]
@@ -239,7 +239,7 @@ rsorddgen.func=function(postx,clfdr,q=0.1){
   sorted.gp2=gp2[order(tstat.gp2,decreasing = F)]
   
   rejset=c(gp0,sorted.gp2[1:(k-1)])
-  while (mean(clfdr[rejset])<q &&length(sorted.gp1)>0) {
+ while (((mean(clfdr[c(rejset,sorted.gp1[1])])<q) &&(length(sorted.gp1)>1))) {
     rejset=c(rejset,sorted.gp1[1])
    
     sorted.clfdrgp1=sorted.clfdrgp1[-1]
