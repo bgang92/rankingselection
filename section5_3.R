@@ -5,8 +5,8 @@ source('rih.R')
 source('rsorgen.R')
 library(CVXR)
 #library(invgamma)
-library(rvalues)
-library(truncnorm)
+#library(rvalues)
+#library(truncnorm)
 
 
 
