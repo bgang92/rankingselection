@@ -4,7 +4,7 @@ source("nest.func.R")
 source('rih.R')
 source('rsorgen.R')
 library(CVXR)
-library(invgamma)
+
 
 m<-5000   #number of hypothesis
 nrep<-100#number of reptitions
