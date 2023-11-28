@@ -7,9 +7,9 @@ source('rsor.R')
 source('rsorgen.R')
 source('cb.colors.R')
 library(CVXR)
-library(invgamma)
-library(rvalues)
-library(truncnorm)
+#library(invgamma)
+#library(rvalues)
+#library(truncnorm)
 
 
 m<-10000   
