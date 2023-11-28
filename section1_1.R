@@ -5,9 +5,7 @@ source("nest.func.R")
 source('rih.R')
 source('rsorgen.R')
 library(CVXR)
-library(invgamma)
-library(rvalues)
-library(truncnorm)
+
 par(mfrow=c(1, 3), mgp=c(2, 0.5, 0), mar=c(3, 3, 2, 1)+0.1)
 d=read.csv("AYP_05.csv")
 x=d$n_seapass/d$n_seatest-d$n_sedpass/d$n_sedtest
