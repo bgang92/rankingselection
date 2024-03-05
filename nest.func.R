@@ -1,3 +1,17 @@
+nest.func=function(x,sig,jacknife=T){
+  #NEST procedure
+  #Output is the posterior expectation of x
+ 
+  fm=function(a,b){
+    res=falt.nest(c(a,b),x,sig,rep(1/length(x),length(x)),jacknife=jacknife)
+    return(res)
+  }
+
+  denom=mapply(fm, x,sig)
+
+  result=list(dens=denom)
+  return(result)
+}
 
 
 
