@@ -1,8 +1,10 @@
-This folder contains the code for the paper "Ranking and Selection in Large-Scale Inference of Heteroscedastic Units"
+This folder contains the code for the paper "Ranking and Selection in Large-Scale Inference of Heteroscedastic Units" by Fu et al.
+
 rih.R contains the main funcitons
 rih.func implement the selection procedure described in Section 3
 rvalue.func constructs r-values by varying FDR level
 rvalue2.func constructs r-values by varying mu_0
 
-3M.funcs.R, nest.func.R, rsorgen.R contains functions used by rih.R.
+3M.funcs.R, nest.func.R, rsorgen.R contains helper functions used by rih.R.
+
 To replicate the result from say section 5.3 run "section5_3.R"
