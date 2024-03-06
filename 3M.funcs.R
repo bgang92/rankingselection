@@ -2,6 +2,7 @@
 
 bh.func<-function(pv, q)
 { 
+  #This function implements the BH procedure
   # the input 
     # pv: the p-values
     # q: the FDR level
@@ -39,7 +40,7 @@ bh.func<-function(pv, q)
 
 sc.func<-function(lfdr, q)
 {
-
+#This function implements the SC procedure in Sun and Cai 2007
 ## USAGE
  # mt.sc(lfdr, q)
  
