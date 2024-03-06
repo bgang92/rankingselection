@@ -1,25 +1,10 @@
-nest.func=function(x,sig,jacknife=T){
-  
-  fm=function(a,b){
-    res=falt.nest(c(a,b),x,sig,rep(1/length(x),length(x)),jacknife=jacknife)
-    return(res)
-  }
+falt.nest=function(z,x,sig,weight=rep(1,length(x)),jacknife=T){
 
-  denom=mapply(fm, x,sig)
-
-  result=list(dens=denom)
-  return(result)
-}
-
-
-
-falt.nest=function(z,x,sig,weight,jacknife=T){
-  #weighted NEST density function evaluated at z
-  #In NEST the weight is just rep(1,length(x))
-  #x is the observations
-  #sig is the corresponding standard deviation
-  #note here z is a 2-tuple,the first is the observation, the second is sd
-  
+  #This function compute the weighted bivariate density estimate at z (see section 3.1 of the paper for detail)
+  #x is the vector of raw observations.
+  #sig is the vector of corresponding standard deviations.
+  #z is a 2-tuple,the first is the observation, the second is standard deviation
+ 
   xds=density(x,from = min(x)-IQR(x)/2,to=max(x)+IQR(x)/2,n=length(x)/5)   #this line and the next are used to find bandwidth
   sigds=density(sig,from = min(sig)-IQR(sig)/2,to=max(sig)+IQR(sig)/2,n=length(x)/5)
   h=xds$bw
@@ -48,6 +33,26 @@ falt.nest=function(z,x,sig,weight,jacknife=T){
 
 
 
+
+nest.func=function(x,sig,jacknife=T){
+  #This function calculate the weighted bivariate density at every point of (x,sig)
+  fm=function(a,b){
+    res=falt.nest(c(a,b),x,sig,rep(1/length(x),length(x)),jacknife=jacknife)
+    return(res)
+  }
+
+  denom=mapply(fm, x,sig)
+
+  result=list(dens=denom)
+  return(result)
+}
+
+
+
+
+
+
+
 dens.func=function(w,gd,sig,x){
   #w is the weigt
   #gd is the grid
@@ -58,13 +63,13 @@ dens.func=function(w,gd,sig,x){
     a=dnorm(gd-x[i],0,sig[i])
     est[i]=sum(a*w)
   }
-  
-
  
   return(est)
 }
 
 west.func=function(dens.dd,x,sig,gdsize=500,mu=NULL,adjust=T){
+  #This function solves the optimization problem (3.2) in the paper
+  
   if(is.null(mu)){
   
   gd=seq(quantile(x,0.01),quantile(x,0.99),length.out = gdsize)
