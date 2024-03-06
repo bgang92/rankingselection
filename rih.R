@@ -1,4 +1,5 @@
 rih.func=function(x,sig,mu0,q=0.1,epsilon=10^(-3),gd=100,mod=2,jacknife=T,mu=NULL,adjust=T){
+  #This function implements Algorithm 1 in the paper
   #q is the target FDR level
   #gd is the grid size
   #mod=2 means use convolution to estimate the marginal density
@@ -8,7 +9,6 @@ rih.func=function(x,sig,mu0,q=0.1,epsilon=10^(-3),gd=100,mod=2,jacknife=T,mu=NUL
   #t is the estimated t statistics
   #de is the decision
   
-
   #step 1: pilot density estimate 
   nest.res=nest.func(x,sig,jacknife=jacknife)
   dens.dd=nest.res$dens
