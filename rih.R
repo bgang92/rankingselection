@@ -61,15 +61,7 @@ rih.func=function(x,sig,mu0,q=0.1,epsilon=10^(-3),gd=100,mod=2,jacknife=T,mu=NUL
 
 
 rsstathomo.func=function(x,sig,mu0,epsilon=10^(-5),gd=200,mod=2,jacknife=T,mu=NULL,conservative=F){
-  #q is the target FDR level
-  #mod=2 means use convolution to estimate the density
-  #return varaible:
-  #Clfdr is the estimated CLfdr
-  #t is the estimated t statistics
-  #rank is the estimated ranking
-  #de is the decision
-  #th is the threshold of t
-  #step 1: pilot density estimate and nest
+
 
   x.ds<-density(x, n=2000)
   x.dens<-lin.itp(x, x.ds$x, x.ds$y)
@@ -113,7 +105,7 @@ rsstathomo.func=function(x,sig,mu0,epsilon=10^(-5),gd=200,mod=2,jacknife=T,mu=NU
 
 
 rvalue.func=function(x,sig,mu0,epsilon=10^(-3),gd=100,mod=2,jacknife=T,mu=NULL,adjust=T){
-
+# This function computes the r-values by changing FDR level alpha (see definition 1 of the paper)
    nest.res=nest.func(x,sig,jacknife=jacknife)
   dens.dd=nest.res$dens
   west=west.func(dens.dd,x,sig,gdsize = gd,mu=mu,adjust=adjust) 
@@ -162,6 +154,7 @@ rvalue.func=function(x,sig,mu0,epsilon=10^(-3),gd=100,mod=2,jacknife=T,mu=NULL,a
 
 
 rvalue2.func=function(x,sig,q=0.1,epsilon=10^(-3),gd=100,mod=2,jacknife=T,mu=NULL,adjust=T){
+  # This function computes the r-values by changing reference level mu_0 (see definition 2 of the paper)
   nest.res=nest.func(x,sig,jacknife=jacknife)
   dens.dd=nest.res$dens
 
