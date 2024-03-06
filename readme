@@ -1,3 +1,17 @@
+platform       aarch64-apple-darwin20      
+arch           aarch64                     
+os             darwin20                    
+system         aarch64, darwin20           
+status                                     
+major          4                           
+minor          1.0                         
+year           2021                        
+month          05                          
+day            18                          
+svn rev        80317                       
+language       R                           
+version.string R version 4.1.0 (2021-05-18)
+
 This folder contains the code for the paper "Ranking and Selection in Large-Scale Inference of Heteroscedastic Units" by Fu et al.
 
 rih.R contains the main funcitons
