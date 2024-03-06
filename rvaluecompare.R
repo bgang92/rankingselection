@@ -3,14 +3,11 @@ source("3M.funcs.R")
 source("datagen.R")
 source("nest.func.R")
 source('rih.R')
-source('rsor.R')
 source('rsorgen.R')
 library(CVXR)
-library(invgamma)
-library(rvalues)
-library(truncnorm)
+
 #par(mfrow=c(1, 3), mgp=c(2, 0.5, 0), mar=c(3, 3, 2, 1)+0.1)
-d=read.csv("mean_se_5yrs.csv")#AYP_05 OK
+d=read.csv("mean_se_5yrs.csv")
 x=d$alpha_firsthalf
 se=d$se_alpha_firsthalf
 
@@ -68,7 +65,7 @@ points(x[indu],s[indu],col=ptcolor,pch=18,cex=2)
 
 
 
-d=read.csv("AYP_05.csv")#AYP_05 OK
+d=read.csv("AYP_05.csv")
 x=d$n_seapass/d$n_seatest-d$n_sedpass/d$n_sedtest
 d$total=d$n_seatest+d$n_seapass+d$n_sedtest+d$n_sedpass
 
@@ -78,7 +75,7 @@ sed_var=d$n_sedpass/d$n_sedtest*(1-d$n_sedpass/d$n_sedtest)/d$n_sedtest
 se=sqrt(sea_var+sed_var)
 
 
-if(1==1){
+if(T){
   qunt=quantile(se,c(0.01,0.99))
   x=x[which(se>qunt[1]&se<qunt[2])]
   se=se[which(se>qunt[1]&se<qunt[2])]
