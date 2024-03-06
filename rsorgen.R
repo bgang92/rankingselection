@@ -1,4 +1,7 @@
 rsorgen.func=function(postx,clfdr,q=0.1){
+  #This function implements the oracle selection procedure in section 2.2 of the paper 
+  #In the paper postx =x-mu_0
+  
   decision=rep(0,length(postx))
   
   
@@ -116,7 +119,8 @@ rsorgen.func=function(postx,clfdr,q=0.1){
 
 
 rsorddgen.func=function(postx,clfdr,q=0.1){
-  # this is rsorgen with computational shortcut 
+  # This function implements Algorithm 1 in the paper (assuming Clfdr is given)
+  # In the paper postx=x-mu_0
   decision=rep(0,length(postx))
   
   pos.emuind=which(postx>=0)
