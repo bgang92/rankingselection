@@ -169,7 +169,6 @@ rvalue2.func=function(x,sig,q=0.1,epsilon=10^(-3),gd=100,mod=2,jacknife=T,mu=NUL
 
   rejectionmat=matrix(rep(0, length(rgrid)*length(x)), length(rgrid), length(x))
   for (j in 1:length(rgrid)) {
-    print(j)
     mu0=rgrid[j]
     indm=max(which(gd<=mu0))
     gd.null=gd[1:indm]
