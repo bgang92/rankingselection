@@ -1,7 +1,4 @@
 rsorgen.func=function(postx,clfdr,q=0.1){
-  #This function implements the oracle selection procedure in section 2.2 of the paper 
-  #In the paper postx =x-mu_0
-  
   decision=rep(0,length(postx))
   
   
@@ -119,8 +116,7 @@ rsorgen.func=function(postx,clfdr,q=0.1){
 
 
 rsorddgen.func=function(postx,clfdr,q=0.1){
-  # This function implements Algorithm 1 in the paper (assuming Clfdr is given)
-  # In the paper postx=x-mu_0
+  # this is rsorgen with computational shortcut 
   decision=rep(0,length(postx))
   
   pos.emuind=which(postx>=0)
@@ -182,7 +178,8 @@ rsorddgen.func=function(postx,clfdr,q=0.1){
   else{
     rejset=gp0
  
-  while (((mean(clfdr[c(rejset,sorted.gp1[1])])<q) &&(length(sorted.gp1)>1))) {
+    while (((mean(clfdr[c(rejset,sorted.gp1[1])])<q) &&(length(sorted.gp1)>1))) {
+      
       rejset=c(rejset,sorted.gp1[1])
      
       
@@ -218,7 +215,7 @@ rsorddgen.func=function(postx,clfdr,q=0.1){
    
    
     
-   while (((mean(clfdr[c(rejset,sorted.gp1[1])])<q) &&(length(sorted.gp1)>1))) {
+    while (((mean(clfdr[c(rejset,sorted.gp1[1])])<q) &&(length(sorted.gp1)>1))) {
       rejset=c(rejset,sorted.gp1[1])
       
       sorted.clfdrgp1=sorted.clfdrgp1[-1]
@@ -243,7 +240,7 @@ rsorddgen.func=function(postx,clfdr,q=0.1){
   sorted.gp2=gp2[order(tstat.gp2,decreasing = F)]
   
   rejset=c(gp0,sorted.gp2[1:(k-1)])
- while (((mean(clfdr[c(rejset,sorted.gp1[1])])<q) &&(length(sorted.gp1)>1))) {
+  while (((mean(clfdr[c(rejset,sorted.gp1[1])])<q) &&(length(sorted.gp1)>1))) {
     rejset=c(rejset,sorted.gp1[1])
    
     sorted.clfdrgp1=sorted.clfdrgp1[-1]
@@ -260,4 +257,31 @@ rsorddgen.func=function(postx,clfdr,q=0.1){
   
   return(res)
   
+}
+
+swap_rows <- function(df, i, j) {
+  temp <- df[i, ]
+  df[i, ] <- df[j, ]
+  df[j, ] <- temp
+  return(df)
+}
+
+# Function to perform the sorting
+sort_dataframe <- function(df) {
+  n <- nrow(df)
+  swapped <- TRUE
+  
+  while (swapped) {
+    swapped <- FALSE
+    for (i in 1:(n-1)) {
+      for (j in (i+1):n) {
+        if (df$x[i] < df$x[j] && df$s[i] > df$s[j]) {
+          df <- swap_rows(df, i, j)
+          swapped <- TRUE
+        }
+      }
+    }
+  }
+  
+  return(df)
 }
