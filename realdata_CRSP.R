@@ -64,17 +64,70 @@ points(x[c(ind3,ind2,ind)],se[c(ind3,ind2,ind)],col=ptcolor[c(ind3,ind2,ind)],pc
 
 
 
+
+
+
 rrval=rvalue2.func(x,se,q=0.1,gd=50,mod=2,jacknife = T)
 
-
-
-
 mm=20 #ranking the top 20
+
+swap_rows <- function(df, i, j) {
+  temp <- df[i, ]
+  df[i, ] <- df[j, ]
+  df[j, ] <- temp
+  return(df)
+}
+
+# Function to perform the sorting
+sort_dataframe <- function(df) {
+  n <- nrow(df)
+  swapped <- TRUE
+  
+  while (swapped) {
+    swapped <- FALSE
+    for (i in 1:(n-1)) {
+      for (j in (i+1):n) {
+        if (df$x[i] < df$x[j] && df$s[i] > df$s[j]) {
+          df <- swap_rows(df, i, j)
+          swapped <- TRUE
+        }
+      }
+    }
+  }
+  
+  return(df)
+}
+
+
 
 
 
 indp=order(pv)[1:mm]
-indr=order(rrval,decreasing = T)[1:mm]
+
+
+
+raw_rank_r=order(rrval,decreasing = T)
+rankr=data.frame(x=x[raw_rank_r],s=s[raw_rank_r])
+
+rankp=data.frame(x=x[indp],s=s[indp])
+
+sorted_df <- sort_dataframe(rankr)
+
+# View the sorted data frame
+print(sorted_df)
+######## tyding up rank
+
+
+
+
+indr_full=rep(0,length(x))
+for (i in 1:length(x)) {
+  print(which(x==sorted_df$x[i] & s==sorted_df$s[i]))
+  indr_full[i]=which(x==sorted_df$x[i] & s==sorted_df$s[i])
+}
+
+
+indr=indr_full[1:mm]
 indboth=intersect(indp,indr)
 indu=union(indp,indr)
 
@@ -97,6 +150,7 @@ ptype=rep(1,length(indu))
 plot(x,s,col='gray',pch=1,cex=2,ylab='se',xlab = 'x',main='(b)Top 20 mutual funds')
 points(x[indu],s[indu],col=ptcolor,pch=18,cex=2)
 
-
+sum(x[which(d.dd$de==1)])
+sum(d.dd$de)
 
 
