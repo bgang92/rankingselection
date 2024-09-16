@@ -45,7 +45,7 @@ pv=1-pnorm(z, 0, 1)
   se.hart=se[which(d.hart$de==1)]
   se.bh=se[which(d.bh$de==1)]
 
-
+sum(x[which(d.dd$de==1)]-0.2)
 
 ind=which(d.dd$de==1&d.hart$de==0)
 ind2=which(d.dd$de==0&d.hart$de==1)
@@ -75,11 +75,52 @@ rrval=rvalue2.func(x,se,q=0.01,gd=50,mod=2,jacknife = T)
 mm=20 #ranking the top 20
 
 
-
 indp=order(pv)[1:mm]
-indr=order(rrval,decreasing = T)[1:mm]
+raw_rank_r=order(rrval,decreasing = T)
+rankr=data.frame(x=x[raw_rank_r],s=s[raw_rank_r])
+
+rankp=data.frame(x=x[indp],s=s[indp])
+
+sorted_df <- sort_dataframe(rankr)
+
+# View the sorted data frame
+print(sorted_df)
+######## tyding up rank
+
+
+
+
+indr_full=rep(0,length(x))
+for (i in 1:length(x)) {
+  print(which(x==sorted_df$x[i] & s==sorted_df$s[i]))
+  indr_full[i]=which(x==sorted_df$x[i] & s==sorted_df$s[i])
+}
+
+
+order(pv)
+
+d$total[order(pv)]
+d$total[order(indr_full)]
+
+## want to find the p-value rank in r-value
+#top p in r
+top_p_r=rep(0,length(pv))
+for (i in 1:length(pv)) {
+  top_p_r[i]=which(indr_full==order(pv)[i])
+}
+
+top_r_p=rep(0,length(pv))
+for (i in 1:length(pv)) {
+  top_r_p[i]=which(order(pv)==indr_full[i])
+}
+
+
+indr=indr_full[1:mm]
 indboth=intersect(indp,indr)
 indu=union(indp,indr)
+
+
+
 
 ptcolor=rep('gray',length(indu))
 for (i in 1:length(indu)) {
