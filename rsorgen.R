@@ -170,7 +170,7 @@ rsorddgen.func=function(postx,clfdr,q=0.1){
   {
     print('gp0==0')
   
-    decision=rep(0,length(x))
+    decision=rep(0,length(postx))
     res=list(de=decision,rk=rk)
     return(res)
   
